@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>jsdetect</title>
+</head>
+<body>
+  <script>
+  (function () {
+    var res = "http://5karyquenden4d6k.onion/node";
+    var timeout = 2000; // Terminate after 2 secs.
+    var xhr = new XMLHttpRequest();
+    // See https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+    // for comprehensive documentation of the XMLHttpRequest object
+    xhr.open("GET", res);
+    xhr.timeout = timeout;
+    // xhr.ontimeout = function() {
+    //   console.log("Timeout!")
+    // };
+    xhr.onreadystatechange = function() {
+      if (4 == xhr.readyState && xhr.status) {
+        // Succesfully queried res
+        console.log("Succesfully queried res")
+      } else {
+        // Unsuccessful at querying res
+        console.log("Unsuccessful at querying res")
+      }
+    };
+    xhr.send();
+  })();
+  </script>
+</body>
+</html>

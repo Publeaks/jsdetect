@@ -7,24 +7,28 @@
 <body>
   <script>
   (function () {
-    var res = "http://5karyquenden4d6k.onion/node";
+    // We assume we're not on Tor by default
+    window.onTor = false;
+    // Defaults
+    var resource = "https://secure.publeaks.nl/checktor";
     var timeout = 2000; // Terminate after 2 secs.
     var xhr = new XMLHttpRequest();
     // See https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
     // for comprehensive documentation of the XMLHttpRequest object
-    xhr.open("GET", res);
+    xhr.open("GET", resource);
     xhr.timeout = timeout;
     // xhr.ontimeout = function() {
-    //   console.log("Timeout!")
     // };
     xhr.onreadystatechange = function() {
-      if (4 == xhr.readyState && xhr.status) {
-        // Succesfully queried res
-        console.log("Succesfully queried res")
+      if (4 == xhr.readyState && 200 == xhr.status) {
+        // console.log("Succesfully queried Tor status")
+        if (xhr.getResponseHeader("x-check-tor") === "true") {
+          window.onTor = true;
+        }
       } else {
-        // Unsuccessful at querying res
-        console.log("Unsuccessful at querying res")
+        // console.log("Unsuccessfully queried Tor status")
       }
+      // console.log(window.onTor);
     };
     xhr.send();
   })();
